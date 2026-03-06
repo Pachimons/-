@@ -28,8 +28,12 @@ class Settings:
     # 文件上传配置
     UPLOAD_DIR: str = os.getenv("UPLOAD_DIR", "./uploads")
 
-    # CORS 允许的来源（开发模式允许所有来源）
-    CORS_ORIGINS: list = ["*"]
+    # CORS 允许的来源（逗号分隔，默认允许所有来源）
+    CORS_ORIGINS: list = [
+        o.strip()
+        for o in os.getenv("CORS_ORIGINS", "*").split(",")
+        if o.strip()
+    ]
 
     # 服务端口
     PORT: int = int(os.getenv("PORT", "8000"))
